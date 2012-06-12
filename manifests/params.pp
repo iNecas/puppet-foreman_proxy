@@ -2,6 +2,11 @@ class foreman_proxy::params {
 
   include tftp::params
 
+  # set true to skip setting up repos to be used to install the packages.
+  # This allows you to use custom repositories instead.
+  $custom_repo = true
+
+  # set true to enable testing repositories
   $use_testing = true
 
   # variables

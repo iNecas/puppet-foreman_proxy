@@ -1,8 +1,10 @@
 class foreman_proxy::install {
-  class { '::foreman::install::repos': use_testing => $foreman_proxy::use_testing }
+  if ! $foreman_proxy::custom_repo {
+    class { '::foreman::install::repos': use_testing => $foreman_proxy::use_testing }
+  }
 
   package {'foreman-proxy':
     ensure  => present,
-    require => Class['foreman::install::repos'],
+    require => $foreman_proxy::custom_repo ? { true => [], default => Class['foreman::install::repos'] },
   }
 }
